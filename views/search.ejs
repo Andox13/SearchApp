@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Buscar</title>
+    <link rel="stylesheet" href="/styles" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous" />
+</head>
+<body>
+    <div>
+        <nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark" id="nav">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="#">Analytics Business Intelligence</a>
+              <div class="navbar-nav" id="nav--link">
+                <a class="nav-link btn btn-outline-success" href="/dash">Dashboard</a>
+                <a class="nav-link btn btn-outline-success" href="/table">Registros</a>
+              </div>
+            </div>
+        </nav>
+    </div>
+    <div class="content">
+        <div class="container-search">
+            <h1>Buscar en la Base de Datos</h1>
+            <form action="/search" method="post">
+                <input class="search-input" name="NOMBRE" placeholder="Buscar por nombre..." type="text" />
+                <input class="search-input" name="ID" placeholder="Buscar por cedula..." type="text" />
+                <input class="search-input" name="CORREGIMIENTO" placeholder="Buscar por corregimiento..." type="text" />
+                <input class="search-input" name="PROVINCIA" placeholder="Buscar por provincia..." type="text" />
+
+                <select class="form-select" name="DISTRITO">
+                    <option value="" selected>Selecciona un distrito</option>
+                    <option value="LA CHORRERA">La Chorrera</option>
+                    <option value="ARRAIJÁN">Arraiján</option>
+                </select>
+
+                <br>
+
+                <select class="form-select" name="PARTIDO">
+                    <option value="" selected>Selecciona un partido</option>
+                    <option value="INDEPENDIENTE">Independiente</option>
+                    <option value="PARTIDO PANAMEÑISTA">Panameñista</option>
+                </select>
+                <br>
+                <button class="search-button" type="submit">Filtrar</button>
+            </form>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+</body>
+
+</html>
