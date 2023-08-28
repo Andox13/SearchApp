@@ -102,11 +102,6 @@ fs.readFile('data.csv', 'utf8', (err, csvData) => {
   });
 });
 
-
-app.listen(3010, () => {
-  console.log('Server is running on port 3000');
-});
-
 app.get('/styles', (req, res) => {
   res.sendFile(__dirname + '/public/css/styles.css')
 })
