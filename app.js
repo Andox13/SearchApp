@@ -55,6 +55,7 @@ fs.readFile('data.csv', 'utf8', (err, csvData) => {
   });
 });
 
+
 app.post('/search', (req, res) => {
   let entrada1 = req.body.NOMBRE;
   let entrada2 = req.body.ID;
@@ -71,7 +72,7 @@ app.post('/search', (req, res) => {
   }
 
   let filtered_data = [];
-
+//PROVINCIA;CIRCUITO;DISTRITO;CORREGIMIENTO;CENTRO DE VOTACION;CEDULA;NOMBRE;FECHA;EDAD;SEXO;PARTIDO;CELULAR;DIRECCION
   if (entrada1) {
     filtered_data = data.filter(row => String(row['NOMBRE']).toLowerCase().includes(entrada1.toLowerCase()));
   } else if (entrada2) {
