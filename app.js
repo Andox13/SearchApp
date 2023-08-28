@@ -23,6 +23,10 @@ app.get('/dash', (req, res) => {
   res.render('dash.ejs');
 });
 
+app.post('/registros', (req, res) => {
+  res.render('results.ejs', { results: data });
+});
+
 app.get('/error', (req, res) => {
   res.render('error.ejs');
 })
@@ -31,16 +35,25 @@ app.get('/logo', (req, res) => {
   res.readFile('/public/images/logo.png')
 })
 
-let dataC = [];
-fs.createReadStream('data.csv')
-  .pipe(csv())
-  .on('data', (row) => {
-    dataC.push(row);
-  })
-  .on('end', () => {
-    console.log('CSV file successfully processed');
-  });
+app.get('/styles', (req, res) => {
+  res.sendFile(__dirname + '/public/css/styles.css')
+})
 
+app.get('/stylesdash', (req, res) => {
+  res.sendFile(__dirname + '/public/css/style.css');
+});
+
+let data = [];
+
+fs.readFile('data.csv', 'utf8', (err, csvData) => {
+  if (err) throw err;
+  Papa.parse(csvData, {
+    header: true,
+    complete: (results) => {
+      data = results.data;
+    }
+  });
+});
 
 app.post('/search', (req, res) => {
   let entrada1 = req.body.NOMBRE;
@@ -62,7 +75,7 @@ app.post('/search', (req, res) => {
   if (entrada1) {
     filtered_data = data.filter(row => String(row['NOMBRE']).toLowerCase().includes(entrada1.toLowerCase()));
   } else if (entrada2) {
-    filtered_data = data.filter(row => String(row['ID']).toLowerCase().includes(entrada2.toLowerCase()));
+    filtered_data = data.filter(row => String(row['CEDULA']).toLowerCase().includes(entrada2.toLowerCase()));
   } else if (entrada3) {
     filtered_data = data.filter(row => String(row['CORREGIMIENTO']).toLowerCase().includes(entrada3.toLowerCase()));
   } else if (entrada4) {
@@ -79,33 +92,8 @@ app.post('/search', (req, res) => {
   res.render('results.ejs', { results: filtered_data });
 });
 
-app.post('/registros', (req, res) => {
-  res.render('results.ejs', { results: data });
-});
-
 app.listen(3000, () => {
   console.log('Server is running on port 3000');
 });
 
-app.set('view engine', 'ejs');
-app.use(express.static('public'));
 
-let data = [];
-
-fs.readFile('data.csv', 'utf8', (err, csvData) => {
-  if (err) throw err;
-  Papa.parse(csvData, {
-    header: true,
-    complete: (results) => {
-      data = results.data;
-    }
-  });
-});
-
-app.get('/styles', (req, res) => {
-  res.sendFile(__dirname + '/public/css/styles.css')
-})
-
-app.get('/stylesdash', (req, res) => {
-  res.sendFile(__dirname + '/public/css/style.css');
-});
