@@ -72,7 +72,7 @@ app.post('/search', (req, res) => {
   }
 
   let filtered_data = [];
-//PROVINCIA;CIRCUITO;DISTRITO;CORREGIMIENTO;CENTRO DE VOTACION;CEDULA;NOMBRE;FECHA;EDAD;SEXO;PARTIDO;CELULAR;DIRECCION
+  //PROVINCIA;CIRCUITO;DISTRITO;CORREGIMIENTO;CENTRO DE VOTACION;CEDULA;NOMBRE;FECHA;EDAD;SEXO;PARTIDO;CELULAR;DIRECCION
   if (entrada1) {
     filtered_data = data.filter(row => String(row['NOMBRE']).toLowerCase().includes(entrada1.toLowerCase()));
   } else if (entrada2) {
@@ -81,13 +81,13 @@ app.post('/search', (req, res) => {
     filtered_data = data.filter(row => String(row['CORREGIMIENTO']).toLowerCase().includes(entrada3.toLowerCase()));
   } else if (entrada4) {
     filtered_data = data.filter(row => String(row['PROVINCIA']).toLowerCase().includes(entrada3.toLowerCase()));
-    filtered_data = filtered_data.slice(0, 500);
+    filtered_data = filtered_data
   } else if (entrada5) {
     filtered_data = data.filter(row => String(row['PARTIDO']).toLowerCase() === entrada5.toLowerCase());
-    filtered_data = filtered_data.slice(0, 800);
+    filtered_data = filtered_data.splice(0, 1000);
   } else if (entrada6) {
     filtered_data = data.filter(row => String(row['DISTRITO']).toLowerCase() === entrada6.toLowerCase());
-    filtered_data = filtered_data.slice(0, 500);
+    filtered_data = filtered_data.splice(0, 1000);
   }
 
   res.render('results.ejs', { results: filtered_data });
@@ -96,5 +96,3 @@ app.post('/search', (req, res) => {
 app.listen(3000, () => {
   console.log('Server is running on port 3000');
 });
-
-
