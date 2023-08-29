@@ -81,7 +81,7 @@ app.post('/search', (req, res) => {
     filtered_data = data.filter(row => String(row['CORREGIMIENTO']).toLowerCase().includes(entrada3.toLowerCase()));
   } else if (entrada4) {
     filtered_data = data.filter(row => String(row['PROVINCIA']).toLowerCase().includes(entrada3.toLowerCase()));
-    filtered_data = filtered_data
+    filtered_data = filtered_data.splice(0, 1000);
   } else if (entrada5) {
     filtered_data = data.filter(row => String(row['PARTIDO']).toLowerCase() === entrada5.toLowerCase());
     filtered_data = filtered_data.splice(0, 1000);
