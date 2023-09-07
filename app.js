@@ -60,11 +60,11 @@ app.post('/search', (req, res) => {
   let entrada1 = req.body.NOMBRE;
   let entrada2 = req.body.ID;
   let entrada3 = req.body.CORREGIMIENTO;
-  let entrada4 = req.body.PROVINCIA;
-  let entrada5 = req.body.PARTIDO;
-  let entrada6 = req.body.DISTRITO;
 
-  let entradas = [entrada1, entrada2, entrada3, entrada4, entrada5, entrada6];
+  // let entradas = [entrada1, entrada2, entrada3, entrada4, entrada5, entrada6];
+  // let countEntradas = entradas.filter(e => e).length; // Cuenta cuántas entradas tienen valor
+
+  let entradas = [entrada1, entrada2, entrada3];
   let countEntradas = entradas.filter(e => e).length; // Cuenta cuántas entradas tienen valor
 
   if (countEntradas !== 1) {
@@ -74,6 +74,8 @@ app.post('/search', (req, res) => {
   let filtered_data = [];
   //PROVINCIA;CIRCUITO;DISTRITO;CORREGIMIENTO;CENTRO DE VOTACION;CEDULA;NOMBRE;FECHA;EDAD;SEXO;PARTIDO;CELULAR;DIRECCION
 
+  //PROVINCIA;DISTRITO;CORREGIMIENTO;CENTRO;CEDULA;NOMBRE;FECHA;SEXO;CELULAR;DIRECCION
+
   // PROVINCIA;DISTRITO;CORREGIMIENTO;CENTRO DE VOTACION;CEDULA;NOMBRE;FECHA;SEXO;CELULAR;DIRECCION
   if (entrada1) {
     filtered_data = data.filter(row => String(row['NOMBRE']).toLowerCase().includes(entrada1.toLowerCase()));
@@ -81,16 +83,18 @@ app.post('/search', (req, res) => {
     filtered_data = data.filter(row => String(row['CEDULA']).toLowerCase().includes(entrada2.toLowerCase()));
   } else if (entrada3) {
     filtered_data = data.filter(row => String(row['CORREGIMIENTO']).toLowerCase().includes(entrada3.toLowerCase()));
-  } else if (entrada4) {
-    filtered_data = data.filter(row => String(row['PROVINCIA']).toLowerCase().includes(entrada3.toLowerCase()));
-    filtered_data = filtered_data.splice(0, 1000);
-  } else if (entrada5) {
-    filtered_data = data.filter(row => String(row['PARTIDO']).toLowerCase() === entrada5.toLowerCase());
-    filtered_data = filtered_data.splice(0, 1000);
-  } else if (entrada6) {
-    filtered_data = data.filter(row => String(row['DISTRITO']).toLowerCase() === entrada6.toLowerCase());
-    filtered_data = filtered_data.splice(0, 1000);
+    filtered_data.splice(0, 1);
   }
+  // } else if (entrada4) {
+  //   filtered_data = data.filter(row => String(row['PROVINCIA']).toLowerCase().includes(entrada3.toLowerCase()));
+  //   filtered_data = filtered_data.splice(0, 1000);
+  // } else if (entrada5) {
+  //   filtered_data = data.filter(row => String(row['PARTIDO']).toLowerCase() === entrada5.toLowerCase());
+  //   filtered_data = filtered_data.splice(0, 1000);
+  // } else if (entrada6) {
+  //   filtered_data = data.filter(row => String(row['DISTRITO']).toLowerCase() === entrada6.toLowerCase());
+  //   filtered_data = filtered_data.splice(0, 1000);
+  // }
 
   res.render('results.ejs', { results: filtered_data });
 });
